@@ -53,14 +53,6 @@ func _ready():
     armature.skeleton_updated.connect(_on_skeleton_updated)
 
 func _on_skeleton_updated():
-    # Ensure Model class is accessible, or armature/ik_group hold needed refs
-    if not is_instance_valid(armature) or not is_instance_valid(ik_group):
-        printerr("IKController: Armature or IKGroup is not valid in _on_skeleton_updated.")
-        return
-    if not is_instance_valid(new_tip) or not is_instance_valid(new_magnet):
-        printerr("IKController: new_tip or new_magnet is not valid in _on_skeleton_updated.")
-        return
-
     if ik_group.is_tip_idle:
         var current_bone_tip_transform = Model.get_bone_global_transform(armature, ik_group.tip_index)
         new_tip.global_transform = current_bone_tip_transform
