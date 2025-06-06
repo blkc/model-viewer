@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3t1hs33dl224"]
+
+[ext_resource type="Script" uid="uid://bhn70banab2r4" path="res://assets/bone_controller/bone_sprite.gd" id="1_261vn"]
+[ext_resource type="Texture2D" uid="uid://q2ujxjmbpd4" path="res://assets/bone_controller/sprite.svg" id="1_m3b6u"]
+
+[node name="Button" type="Button"]
+offset_right = 60.0
+offset_bottom = 60.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_force_pass_scroll_events = false
+mouse_default_cursor_shape = 2
+action_mode = 0
+icon = ExtResource("1_m3b6u")
+flat = true
+script = ExtResource("1_261vn")

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn2ttbws07l7v"]
+
+[ext_resource type="Material" uid="uid://cmm5ohlrgdajn" path="res://materials/ground_3_mat/ground_3_mat.tres" id="1_cv6gx"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sd3kf"]
+size = Vector2(100, 100)
+
+[node name="Ground" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_cv6gx")
+mesh = SubResource("PlaneMesh_sd3kf")

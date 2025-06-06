@@ -1,0 +1,9 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/manager.gd" id="1_q3l4b"]
+[ext_resource type="PackedScene" uid="uid://b3t1hs33dl224" path="res://assets/bone_controller/bone_sprite.tscn" id="2_q8rer"]
+
+[node name="Manager" type="Node"]
+script = ExtResource("1_q3l4b")
+root_bone_name = &"hips"
+bone_sprite_scene = ExtResource("2_q8rer")

@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3 uid="uid://sd4mlbgfqvhx"]
+
+[ext_resource type="PackedScene" path="res://assets/ground.tscn" id="1_uprtf"]
+[ext_resource type="Script" uid="uid://r73lj3pgrlsh" path="res://scripts/bone_indicator_container.gd" id="2_abc123"]
+[ext_resource type="Script" uid="uid://bbih24eaqfwk5" path="res://assets/bone_controller/ik_group.gd" id="3_4sf42"]
+[ext_resource type="Script" uid="uid://bdf8wxgkftw8" path="res://assets/bone_controller/fk_group.gd" id="4_dvrch"]
+
+[sub_resource type="Resource" id="Resource_q7hna"]
+script = ExtResource("3_4sf42")
+root = &"shoulder.r"
+magnet = &"forearm.r"
+tip = &"hand.r"
+metadata/_custom_type_script = "uid://bbih24eaqfwk5"
+
+[sub_resource type="Resource" id="Resource_1jfc4"]
+script = ExtResource("3_4sf42")
+root = &"shoulder.l"
+magnet = &"forearm.l"
+tip = &"hand.l"
+metadata/_custom_type_script = "uid://bbih24eaqfwk5"
+
+[sub_resource type="Resource" id="Resource_fsx88"]
+script = ExtResource("3_4sf42")
+root = &"thigh.r"
+magnet = &"shin.r"
+tip = &"foot.r"
+metadata/_custom_type_script = "uid://bbih24eaqfwk5"
+
+[sub_resource type="Resource" id="Resource_epmeg"]
+script = ExtResource("3_4sf42")
+root = &"thigh.l"
+magnet = &"shin.l"
+tip = &"foot.l"
+metadata/_custom_type_script = "uid://bbih24eaqfwk5"
+
+[sub_resource type="Resource" id="Resource_1q8gj"]
+script = ExtResource("4_dvrch")
+target_bone = &"hips"
+metadata/_custom_type_script = "uid://bdf8wxgkftw8"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_27ccq"]
+sky_top_color = Color(0.5, 0.7, 1, 1)
+sky_horizon_color = Color(0.7, 0.85, 1, 1)
+ground_bottom_color = Color(0.4, 0.45, 0.5, 1)
+ground_horizon_color = Color(0.6, 0.65, 0.7, 1)
+
+[sub_resource type="Sky" id="Sky_27ccq"]
+sky_material = SubResource("ProceduralSkyMaterial_27ccq")
+
+[sub_resource type="Environment" id="Environment_q7hna"]
+background_mode = 2
+sky = SubResource("Sky_27ccq")
+
+[node name="SharedScene" type="Node3D"]
+
+[node name="Ground" parent="." instance=ExtResource("1_uprtf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.610381, 0, 0.324663)
+
+[node name="Configuration" type="Node" parent="."]
+
+[node name="BoneIndicatorContainer" type="Node2D" parent="Configuration"]
+script = ExtResource("2_abc123")
+ik_pairs = Array[ExtResource("3_4sf42")]([SubResource("Resource_q7hna"), SubResource("Resource_1jfc4"), SubResource("Resource_fsx88"), SubResource("Resource_epmeg")])
+fk_pairs = Array[ExtResource("4_dvrch")]([SubResource("Resource_1q8gj")])
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0548979, 0.998492, 0, -0.998492, 0.0548979, 0, 17.7887, -0.654642)
+
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q7hna")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14.3464, 0)
+visible = false
+light_energy = 16.0
+spot_range = 20.0
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.970245, -0.242125, 0, 0.242125, 0.970245, 0, 4, 4)
+light_energy = 0.5
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31497, 1.32108, -0.833973)
+light_cull_mask = 4294967294
+
+[node name="ModelContainer" type="Node3D" parent="."]
+unique_name_in_owner = true

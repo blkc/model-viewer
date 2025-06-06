@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu7k3lepuged2"]
+
+[ext_resource type="Script" uid="uid://b14mkirour12p" path="res://assets/camera/camera.gd" id="1_o32w1"]
+
+[node name="Camera" type="Node3D"]
+script = ExtResource("1_o32w1")
+
+[node name="Elevation" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Elevation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+current = true
