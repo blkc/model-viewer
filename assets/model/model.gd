@@ -42,9 +42,6 @@ func is_detailed(bone_name: String) -> bool:
 
     return false
 
-## Get the current transform of the bone in it's rest pose (default position of
-## the armature), for the current pose, check
-## [method Model.get_bone_global_transform]
 static func get_bone_global_rest_transform(p_armature: Skeleton3D, bone_id: int) -> Transform3D:
     return p_armature.global_transform * p_armature.get_bone_global_rest(bone_id)
 
@@ -56,7 +53,6 @@ static func get_bone_global_position(p_armature: Skeleton3D, bone_id: int) -> Ve
 
 
 func _on_tree_exiting():
-    # Only cleanup if we're actually being deleted, not when reparented
     if is_queued_for_deletion():
         manager.models.erase(self)
 
@@ -77,7 +73,6 @@ func _ready():
     assert(armature, "Armature not found")
     prepare_bones()
 
-    # Set up IK controllers first, independent of viewports/sprites
     setup_ik_controllers()
     setup_constraints()
 
@@ -86,8 +81,6 @@ func _ready():
     for curr_container in manager.bone_indicator_containers:
         curr_container.instantiate_ik(self)
         curr_container.instantiate_fk(self)
-
-    _setup_materials()
 
 func setup_constraints() -> void:
     pass
@@ -106,45 +99,6 @@ func set_model_path(path: String, is_internal: bool = false) -> void:
     set_meta("is_internal", is_internal)
 
 
-func _setup_materials():
-    var shader_file = load("res://shaders/highlight.gdshader")
-
-    for mesh_instance in find_children("*", "MeshInstance3D"):
-        var material = ShaderMaterial.new()
-        mesh_instance.material_overlay = material
-        material.shader = shader_file
-        material.set_shader_parameter("selected", false)
-
-        material.render_priority = 1
-
 func _input(event) -> void:
     if event is not InputEventMouseButton:
         return
-
-    #if event.button_index == MOUSE_BUTTON_RIGHT and not event.pressed and is_selected:
-    #    var from := camera.project_ray_origin(event.position)
-    #    var to := from + camera.project_ray_normal(event.position) * 1000
-
-    #    var closest_distance = INF
-    #    var closest_hit = null
-
-    #    for mesh_instance: MeshInstance3D in find_children("*", "MeshInstance3D"):
-    #        # FIXME: This will not work very well if two models are close to each other.
-    #        # and the only way to fix is with procedural/custom colliders
-    #        var aabb = mesh_instance.get_aabb()
-
-    #        # Transform ray to mesh's local space
-    #        var local_from = mesh_instance.global_transform.inverse() * from
-    #        var local_to = mesh_instance.global_transform.inverse() * to
-
-    #        # Check if ray intersects the mesh's bounding box
-    #        if aabb.intersects_segment(local_from, local_to):
-    #            var hit_distance := from.distance_to(mesh_instance.global_position)
-    #            if hit_distance < closest_distance:
-    #                closest_distance = hit_distance
-    #                closest_hit = mesh_instance
-
-        #if closest_hit:
-            #await get_tree().process_frame
-            #context_menu.show_at_position(event.position)
-            #get_viewport().set_input_as_handled()

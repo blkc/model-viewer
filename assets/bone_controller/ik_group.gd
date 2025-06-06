@@ -1,5 +1,3 @@
-# TODO: Review this entire script, idle detection seemingly is being used in a
-# very weird manner
 extends Resource
 class_name IkGroup
 
@@ -19,7 +17,6 @@ var instanced_tip_buttons: Array[BoneController]
 var instanced_magnet_buttons: Array[BoneController]
 
 func detect_idle(curr_array: Array[BoneController]) -> bool:
-    # Create a new array to store valid buttons
     var valid_buttons: Array[BoneController] = []
 
     for curr_button in curr_array:
@@ -28,7 +25,6 @@ func detect_idle(curr_array: Array[BoneController]) -> bool:
                 return false
             valid_buttons.append(curr_button)
 
-    # Replace the original array with only valid buttons
     curr_array.clear()
     curr_array.append_array(valid_buttons)
     return true

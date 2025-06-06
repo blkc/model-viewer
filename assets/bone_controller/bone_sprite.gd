@@ -42,9 +42,6 @@ func _setup(
     if (!manager):
         manager = Manager.instance
 
-    # Disable default button focus visual
-    focus_mode = Control.FOCUS_NONE
-
     bone_id = p_bone_id
 
     object_target = p_object_target
@@ -137,15 +134,11 @@ func _process(_delta):
             
             var viewport_scale = Vector2(viewport_container.size) / Vector2(viewport.size)
             
-            # Scale the position relative to viewport size
             new_pos = new_pos * viewport_scale
             
-            # For non-main viewports, we need to keep positions local to their container
             if !is_main_viewport:
-                # Keep the position relative to this viewport's local space
-                new_pos = new_pos # Don't add container_pos
+                new_pos = new_pos
             else:
-                # Main viewport can use global positioning
                 new_pos = new_pos + viewport_container.global_position
             
             position = new_pos - rect_offset
