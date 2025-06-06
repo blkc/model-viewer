@@ -121,7 +121,8 @@ func _process(_delta):
     if object_target:
         global_pos = object_target.global_position
     else:
-        global_pos = Model.get_bone_global_position(armature, bone_id)
+        var local_pos = Model.get_bone_pose_position(armature, bone_id)
+        global_pos = armature.global_transform * local_pos
 
     var viewport = get_viewport()
     if viewport and curr_camera:

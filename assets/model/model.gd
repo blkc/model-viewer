@@ -42,14 +42,14 @@ func is_detailed(bone_name: String) -> bool:
 
     return false
 
-static func get_bone_global_rest_transform(p_armature: Skeleton3D, bone_id: int) -> Transform3D:
-    return p_armature.global_transform * p_armature.get_bone_global_rest(bone_id)
+static func get_bone_rest_transform(p_armature: Skeleton3D, bone_id: int) -> Transform3D:
+    return p_armature.get_bone_global_rest(bone_id)
 
-static func get_bone_global_transform(p_armature: Skeleton3D, bone_id: int) -> Transform3D:
-    return p_armature.global_transform * p_armature.get_bone_global_pose(bone_id)
+static func get_bone_pose_transform(p_armature: Skeleton3D, bone_id: int) -> Transform3D:
+    return p_armature.get_bone_global_pose(bone_id)
 
-static func get_bone_global_position(p_armature: Skeleton3D, bone_id: int) -> Vector3:
-    return get_bone_global_transform(p_armature, bone_id).origin
+static func get_bone_pose_position(p_armature: Skeleton3D, bone_id: int) -> Vector3:
+    return get_bone_pose_transform(p_armature, bone_id).origin
 
 
 func _on_tree_exiting():
